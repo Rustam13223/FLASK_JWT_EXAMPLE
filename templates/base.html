@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style media="screen">
+      .container {
+        width: 40%
+      }
+      @media (max-width: 500px) {
+        .container {
+          width: 90%
+        }
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+
+          <ul class="navbar-nav mb-2 mb-lg-0">
+          {% if not current_user %}
+            <li class="nav-item">
+              <a class="nav-link active" href="/sign_up">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/sign_in">Sing In</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/tasks">Tasks</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/logout">Logout</a>
+            </li>
+          {% endif %}
+          </ul>
+
+      </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          {% if category == "error" %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% elif category == "success" %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

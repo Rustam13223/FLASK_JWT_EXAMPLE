@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+
+{% block body %}
+
+<div class="jumbotron" style="max-width: 700px; margin: auto">
+    <div class="input-group mb-3">
+      <input type="text" name="task" id="task_field" class="form-control" placeholder="Input your task">
+      <div class="input-group-append">
+        <button class="btn btn-outline-success" onclick="addTask()" type="button">Add</button>
+      </div>
+    </div>
+
+    {% for task in tasks %}
+    <ul class="list-group">
+      <li style="font-size: 25px" class="list-group-item">{{ task.text }}<span style="float: right" onclick="deleteTask('{{ task._id }}')" class="btn btn-danger">Delete</span></li>
+    </ul>
+    {% endfor %}
+</div>
+<script type="text/javascript" src="{{ url_for("static", filename="tasks.js") }}">
+
+</script>
+{% endblock %}
